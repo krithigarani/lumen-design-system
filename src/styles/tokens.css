@@ -1,0 +1,33 @@
+/* Lumen design tokens — the celestial foundation.
+   Exposed as Tailwind v4 theme values, which also emit matching CSS custom
+   properties (e.g. --color-violet) and utilities (text-violet, bg-violet, …). */
+@theme {
+  /* Text */
+  --color-ink: #eae6ff;
+  --color-muted: #8f8ab3;
+  --color-faint: #55517a;
+
+  /* Accents */
+  --color-violet: #8b7cf6;
+  --color-cyan: #7dd3fc;
+  --color-gold: #e8c47c;
+  --color-magenta: #f472b6;
+
+  /* Surfaces */
+  --color-void: #030309;
+  --color-bg-2: #07071a;
+  --color-surface: #0a0a1c;
+
+  /* Status / extended */
+  --color-emerald: #34d399;
+  --color-amber: #fbbf24;
+  --color-rose: #f0879e;
+  --color-red: #f87171;
+
+  /* Type — consumers may override these vars (e.g. via next/font) */
+  --font-display: "Syne", ui-sans-serif, system-ui, sans-serif;
+  --font-body: "Space Grotesk", ui-sans-serif, system-ui, sans-serif;
+
+  /* Motion — the shared reveal easing across Cosmos & Debris */
+  --ease-celestial: cubic-bezier(0.22, 1, 0.36, 1);
+}

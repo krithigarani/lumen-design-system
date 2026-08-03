@@ -1,0 +1,304 @@
+/* ------------------------------------------------------------------ *
+ * Lumen motion layer.
+ *
+ * One mechanism throughout: discrete state travels on a `data-*` attribute
+ * and CSS transitions it; continuous scroll values arrive as custom
+ * properties written by the scroll store. No JS animation runtime.
+ *
+ * Note: `translate`/`scale` are used as standalone properties rather than
+ * `transform`, so a Reveal can wrap a `.floaty` panel without the two
+ * stomping on each other.
+ * ------------------------------------------------------------------ */
+
+@property --lumen-scroll {
+  syntax: "<number>";
+  inherits: true;
+  initial-value: 0;
+}
+
+@property --lumen-p {
+  syntax: "<number>";
+  inherits: false;
+  initial-value: 0;
+}
+
+:root {
+  --lumen-reveal-duration: 950ms;
+  --lumen-reveal-distance: 44px;
+  --lumen-stagger: 100ms;
+  --lumen-split-stagger: 40ms;
+  --lumen-split-max-delay: 1200ms;
+  --lumen-overlay-duration: 280ms;
+}
+
+/* ---------------- Reveal ---------------- */
+
+.lumen-reveal {
+  opacity: 0;
+  translate: var(--lumen-reveal-x, 0) var(--lumen-reveal-y, var(--lumen-reveal-distance));
+  filter: blur(var(--lumen-reveal-blur, 0px));
+  transition-property: opacity, translate, filter;
+  transition-duration: var(--lumen-reveal-duration);
+  transition-timing-function: var(--ease-celestial);
+  transition-delay: var(--lumen-reveal-delay, 0ms);
+}
+
+.lumen-reveal[data-visible="true"] {
+  opacity: 1;
+  translate: none;
+  filter: none;
+}
+
+/* ---------------- SplitText ---------------- */
+
+.lumen-split-char {
+  display: inline-block;
+  opacity: 0;
+  translate: 0 var(--lumen-split-y, 50px);
+  filter: blur(var(--lumen-split-blur, 8px));
+  transition-property: opacity, translate, filter;
+  transition-duration: var(--lumen-split-duration, 1300ms);
+  transition-timing-function: var(--ease-celestial);
+  transition-delay: min(
+    calc(var(--lumen-i, 0) * var(--lumen-split-stagger)),
+    var(--lumen-split-max-delay)
+  );
+}
+
+.lumen-split[data-visible="true"] .lumen-split-char {
+  opacity: 1;
+  translate: none;
+  filter: none;
+}
+
+/* ---------------- Parallax ---------------- */
+
+.lumen-parallax {
+  translate: 0 calc((var(--lumen-p) * 2 - 1) * var(--lumen-parallax-distance, 80px) * -1);
+  will-change: translate;
+}
+
+.lumen-parallax[data-axis="x"] {
+  translate: calc((var(--lumen-p) * 2 - 1) * var(--lumen-parallax-distance, 80px) * -1) 0;
+}
+
+/* ---------------- Scrim ---------------- */
+
+.lumen-scrim-center {
+  background: radial-gradient(55% 60% at 50% 50%, rgba(2, 2, 8, 0.72), transparent 75%);
+}
+.lumen-scrim-left {
+  background: radial-gradient(60% 80% at 25% 50%, rgba(2, 2, 8, 0.82), transparent 75%);
+}
+.lumen-scrim-right {
+  background: radial-gradient(60% 80% at 75% 50%, rgba(2, 2, 8, 0.82), transparent 75%);
+}
+
+/* ---------------- ScrollProgress ---------------- */
+
+.lumen-progress-fill {
+  transform-origin: left center;
+  scale: var(--lumen-scroll) 1;
+}
+
+/* Where supported, hand the bar to the compositor so it survives main-thread
+   jank. Semantics are identical to the JS path, so the two can't diverge. */
+@supports (animation-timeline: scroll()) {
+  .lumen-progress-fill {
+    scale: 1 1;
+    animation: lumen-progress linear both;
+    animation-timeline: scroll(root block);
+  }
+  @keyframes lumen-progress {
+    from {
+      scale: 0 1;
+    }
+    to {
+      scale: 1 1;
+    }
+  }
+}
+
+/* ---------------- ScrollCue ---------------- */
+
+@keyframes lumen-cue {
+  0%,
+  100% {
+    translate: 0 0;
+    opacity: 0.9;
+  }
+  50% {
+    translate: 0 10px;
+    opacity: 0.25;
+  }
+}
+
+/* The wrapper owns the fade and the mark owns the bob. They must be separate
+   elements: a running animation on `opacity` would otherwise win over the
+   `[data-lumen-scrolled]` rule and the cue would never hide. */
+.lumen-cue {
+  transition: opacity 600ms var(--ease-celestial);
+}
+
+.lumen-cue-mark {
+  animation: lumen-cue 2.4s ease-in-out infinite;
+}
+
+/* Fades itself out once the page has moved — no React involvement. */
+html[data-lumen-scrolled] .lumen-cue {
+  opacity: 0;
+  pointer-events: none;
+}
+
+/* ---------------- Accordion ---------------- */
+
+/* 0fr → 1fr animates without measuring heights in JS. */
+.lumen-collapse {
+  display: grid;
+  grid-template-rows: 0fr;
+  transition: grid-template-rows 500ms var(--ease-celestial);
+}
+.lumen-collapse[data-open="true"] {
+  grid-template-rows: 1fr;
+}
+.lumen-collapse > * {
+  overflow: hidden;
+  min-height: 0;
+}
+
+/* ---------------- Modal ---------------- */
+
+.lumen-dialog {
+  margin: auto;
+  border: 0;
+  padding: 0;
+  max-width: min(92vw, 40rem);
+  max-height: 90dvh;
+  overflow: visible;
+  background: transparent;
+  color: inherit;
+  opacity: 0;
+  scale: 0.96;
+  translate: 0 24px;
+  transition-property: opacity, scale, translate;
+  transition-duration: var(--lumen-overlay-duration);
+  transition-timing-function: var(--ease-celestial);
+}
+
+.lumen-dialog[data-state="open"] {
+  opacity: 1;
+  scale: 1;
+  translate: none;
+}
+
+.lumen-dialog::backdrop {
+  background: rgba(3, 3, 9, 0.72);
+  /* Prefixed first — the minifier drops the standard property if it comes first. */
+  -webkit-backdrop-filter: blur(6px);
+  backdrop-filter: blur(6px);
+  opacity: 0;
+  transition: opacity var(--lumen-overlay-duration) var(--ease-celestial);
+}
+
+.lumen-dialog[data-state="open"]::backdrop {
+  opacity: 1;
+}
+
+/* ---------------- Popover ---------------- */
+
+.lumen-popover {
+  margin: 0;
+  border: 0;
+  padding: 0;
+  /* The UA stylesheet gives an open popover `inset: 0`, which would stretch it
+     to the viewport and break measurement. Size to content instead. */
+  inset: auto;
+  width: max-content;
+  max-width: min(92vw, 22rem);
+  overflow: visible;
+  background: transparent;
+  opacity: 0;
+  scale: 0.97;
+  translate: 0 -6px;
+  transition-property: opacity, scale, translate;
+  transition-duration: 180ms;
+  transition-timing-function: var(--ease-celestial);
+}
+
+.lumen-popover[data-state="open"] {
+  opacity: 1;
+  scale: 1;
+  translate: none;
+}
+
+/* ---------------- Carousel ---------------- */
+
+.lumen-carousel {
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+  touch-action: pan-y pinch-zoom;
+  overscroll-behavior-x: contain;
+}
+.lumen-carousel::-webkit-scrollbar {
+  display: none;
+}
+
+.lumen-slide {
+  scale: 0.9;
+  opacity: 0.45;
+  transition-property: scale, opacity;
+  transition-duration: 420ms;
+  transition-timing-function: var(--ease-celestial);
+}
+.lumen-slide[data-active="true"] {
+  scale: 1;
+  opacity: 1;
+}
+
+/* ---------------- Atmosphere ---------------- */
+
+.lumen-nebula {
+  background:
+    radial-gradient(50rem 34rem at 82% 12%, rgba(139, 124, 246, 0.13), transparent 60%),
+    radial-gradient(42rem 30rem at 10% 78%, rgba(125, 211, 252, 0.08), transparent 60%),
+    radial-gradient(36rem 26rem at 50% 110%, rgba(232, 196, 124, 0.06), transparent 65%);
+}
+
+/* ---------------- Failsafes ---------------- */
+
+/* If scripting never runs, nothing should stay invisible. */
+@media (scripting: none) {
+  .lumen-reveal,
+  .lumen-split-char {
+    opacity: 1;
+    translate: none;
+    filter: none;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .lumen-reveal,
+  .lumen-split-char {
+    opacity: 1;
+    translate: none;
+    filter: none;
+    transition: none;
+  }
+  .lumen-parallax {
+    translate: none;
+    will-change: auto;
+  }
+  .lumen-cue-mark {
+    animation: none;
+  }
+  .lumen-collapse,
+  .lumen-dialog,
+  .lumen-dialog::backdrop,
+  .lumen-popover,
+  .lumen-slide {
+    transition: none;
+  }
+  .lumen-progress-fill {
+    animation: none;
+  }
+}
