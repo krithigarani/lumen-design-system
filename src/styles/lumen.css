@@ -1,6 +1,7 @@
 @import "tailwindcss";
 @import "./tokens.css";
 @import "./motion.css";
+@import "./forms.css";
 
 /* Scan the components so their utility classes are emitted into the shipped
    stylesheet — consumers need no Tailwind install of their own. */

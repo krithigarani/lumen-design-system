@@ -35,6 +35,20 @@ export type { DividerProps } from "./components/Divider/Divider";
 export { Input, Textarea, Field } from "./components/Input/Input";
 export type { InputProps, TextareaProps, FieldProps } from "./components/Input/Input";
 
+export { Checkbox, Radio, RadioGroup, Switch } from "./components/Choice/Choice";
+export type {
+  CheckboxProps,
+  RadioProps,
+  RadioGroupProps,
+  SwitchProps,
+} from "./components/Choice/Choice";
+
+export { Select } from "./components/Select/Select";
+export type { SelectProps } from "./components/Select/Select";
+
+export { Slider } from "./components/Slider/Slider";
+export type { SliderProps } from "./components/Slider/Slider";
+
 export { Spinner } from "./components/Spinner/Spinner";
 export type { SpinnerProps } from "./components/Spinner/Spinner";
 

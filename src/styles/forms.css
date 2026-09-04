@@ -1,0 +1,224 @@
+/* ------------------------------------------------------------------ *
+ * Form controls.
+ *
+ * Every control is a real native input with `appearance: none`, so it keeps
+ * platform semantics, keyboard behaviour and form participation for free —
+ * and needs no React state, which keeps them in the server-safe entry.
+ * ------------------------------------------------------------------ */
+
+.lumen-control {
+  appearance: none;
+  -webkit-appearance: none;
+  flex: none;
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  background-color: rgba(255, 255, 255, 0.04);
+  cursor: pointer;
+  transition-property: border-color, background-color, box-shadow;
+  transition-duration: 200ms;
+  transition-timing-function: var(--ease-celestial);
+}
+
+.lumen-control:hover:not(:disabled) {
+  border-color: rgba(125, 211, 252, 0.5);
+}
+
+.lumen-control:focus-visible {
+  outline: 1px solid var(--color-cyan);
+  outline-offset: 3px;
+}
+
+.lumen-control:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+/* ---------------- Checkbox ---------------- */
+
+.lumen-checkbox {
+  width: 1.15rem;
+  height: 1.15rem;
+  border-radius: 0.375rem;
+}
+
+.lumen-checkbox:checked,
+.lumen-checkbox:indeterminate {
+  background-color: var(--color-cyan);
+  border-color: var(--color-cyan);
+  box-shadow: 0 0 12px rgba(125, 211, 252, 0.45);
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
+.lumen-checkbox:checked {
+  background-size: 78%;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='none' stroke='%23030309' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M3 8.5l3.5 3.5L13 5'/%3E%3C/svg%3E");
+}
+
+.lumen-checkbox:indeterminate {
+  background-size: 62%;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='none' stroke='%23030309' stroke-width='2.5' stroke-linecap='round'%3E%3Cpath d='M3.5 8h9'/%3E%3C/svg%3E");
+}
+
+/* ---------------- Radio ---------------- */
+
+.lumen-radio {
+  width: 1.15rem;
+  height: 1.15rem;
+  border-radius: 9999px;
+}
+
+.lumen-radio:checked {
+  background-color: var(--color-cyan);
+  border-color: var(--color-cyan);
+  /* The inset ring paints the void back over everything but the centre dot. */
+  box-shadow:
+    0 0 12px rgba(125, 211, 252, 0.45),
+    inset 0 0 0 4px var(--color-void);
+}
+
+/* ---------------- Switch ---------------- */
+
+.lumen-switch-input {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  opacity: 0;
+  margin: 0;
+  pointer-events: none;
+}
+
+.lumen-switch-track {
+  position: relative;
+  flex: none;
+  width: 2.5rem;
+  height: 1.4rem;
+  border-radius: 9999px;
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  background-color: rgba(255, 255, 255, 0.06);
+  cursor: pointer;
+  transition-property: background-color, border-color, box-shadow;
+  transition-duration: 260ms;
+  transition-timing-function: var(--ease-celestial);
+}
+
+.lumen-switch-thumb {
+  position: absolute;
+  top: 50%;
+  left: 2px;
+  width: 1rem;
+  height: 1rem;
+  border-radius: 9999px;
+  background: var(--color-ink);
+  translate: 0 -50%;
+  transition: translate 260ms var(--ease-celestial);
+}
+
+.lumen-switch-input:checked + .lumen-switch-track {
+  background-image: linear-gradient(90deg, var(--color-cyan), var(--color-violet));
+  border-color: transparent;
+  box-shadow: 0 0 16px rgba(125, 211, 252, 0.35);
+}
+
+.lumen-switch-input:checked + .lumen-switch-track .lumen-switch-thumb {
+  translate: 1.08rem -50%;
+}
+
+.lumen-switch-input:focus-visible + .lumen-switch-track {
+  outline: 1px solid var(--color-cyan);
+  outline-offset: 3px;
+}
+
+.lumen-switch-input:disabled + .lumen-switch-track {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+/* ---------------- Select ---------------- */
+
+.lumen-select {
+  appearance: none;
+  -webkit-appearance: none;
+  cursor: pointer;
+  padding-right: 2.5rem;
+  background-repeat: no-repeat;
+  background-position: right 1rem center;
+  background-size: 0.7rem;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='none' stroke='%238f8ab3' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M4 6l4 4 4-4'/%3E%3C/svg%3E");
+}
+
+/* The native dropdown list is drawn by the OS; give it legible colours. */
+.lumen-select option {
+  background: #07071a;
+  color: #eae6ff;
+}
+
+/* ---------------- Slider ---------------- */
+
+.lumen-slider {
+  appearance: none;
+  -webkit-appearance: none;
+  width: 100%;
+  background: transparent;
+  cursor: pointer;
+}
+
+.lumen-slider:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+.lumen-slider::-webkit-slider-runnable-track {
+  height: 3px;
+  border-radius: 9999px;
+  background: rgba(255, 255, 255, 0.12);
+}
+
+.lumen-slider::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 1rem;
+  height: 1rem;
+  margin-top: -6.5px;
+  border-radius: 9999px;
+  background: var(--lumen-slider-accent, var(--color-cyan));
+  box-shadow: 0 0 12px color-mix(in srgb, var(--lumen-slider-accent, var(--color-cyan)) 60%, transparent);
+  transition: scale 200ms var(--ease-celestial);
+}
+
+.lumen-slider:active::-webkit-slider-thumb {
+  scale: 1.15;
+}
+
+.lumen-slider::-moz-range-track {
+  height: 3px;
+  border-radius: 9999px;
+  background: rgba(255, 255, 255, 0.12);
+}
+
+.lumen-slider::-moz-range-thumb {
+  width: 1rem;
+  height: 1rem;
+  border: 0;
+  border-radius: 9999px;
+  background: var(--lumen-slider-accent, var(--color-cyan));
+  box-shadow: 0 0 12px color-mix(in srgb, var(--lumen-slider-accent, var(--color-cyan)) 60%, transparent);
+}
+
+.lumen-slider:focus-visible::-webkit-slider-thumb {
+  outline: 1px solid var(--color-cyan);
+  outline-offset: 3px;
+}
+
+.lumen-slider:focus-visible::-moz-range-thumb {
+  outline: 1px solid var(--color-cyan);
+  outline-offset: 3px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .lumen-control,
+  .lumen-switch-track,
+  .lumen-switch-thumb,
+  .lumen-slider::-webkit-slider-thumb {
+    transition: none;
+  }
+}

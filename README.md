@@ -45,7 +45,7 @@ export default function Page() {
 
 | Entry | Contains | Bundle |
 | ----- | -------- | ------ |
-| `@lumen/react` | Button, Card, GlassPanel, Badge, typography, Divider, Input/Textarea/Field, Spinner, OrbitSpinner, Stat, Timeline, Quote, DataList, EmptyState, ScrollArea, NebulaBackdrop, Scrim, `cn`, scroll maths | ~20 KB |
+| `@lumen/react` | Button, Card, GlassPanel, Badge, typography, Divider, all form controls, Spinner, OrbitSpinner, Stat, Timeline, Quote, DataList, EmptyState, ScrollArea, NebulaBackdrop, Scrim, `cn`, scroll maths | ~22 KB |
 | `@lumen/react/client` | Modal, Popover, Carousel, Accordion, Avatar, DotNav, Starfield, LoaderScreen, and the whole motion layer + hooks | ~53 KB |
 
 A component belongs to the client entry when it needs `useState`, `useEffect`, `useRef`,
@@ -112,7 +112,10 @@ Available from the stylesheet, usable on any element:
 | `Badge` `BadgeGroup`                                 | Accented pill; `tone` or an arbitrary `accent` colour           |
 | `Heading` `Text` `GradientText` `Eyebrow` `Hairline` | Typography set                                                  |
 | `Divider`                                            | Fading rule, optionally carrying a label                        |
-| `Input` `Textarea` `Field`                           | Form controls; `Field` wires a generated id to its child        |
+| `Input` `Textarea` `Field`                           | Text controls; `Field` wires a generated id to its child        |
+| `Checkbox` `Radio` `RadioGroup` `Switch`             | Native inputs restyled; `RadioGroup` injects the shared name    |
+| `Select`                                             | Styled native `<select>` — platform picker and type-ahead kept  |
+| `Slider`                                             | Styled native range; `tone` accents the thumb                   |
 | `Spinner` `OrbitSpinner` `LoaderScreen`              | Loaders; `LoaderScreen` cycles status lines with a failsafe     |
 | `Stat` `StatGroup`                                   | HUD readout tile; `media` slot replaces the figure              |
 | `Modal`                                              | Native `<dialog>` — focus trap, Escape, scroll lock, top layer  |
