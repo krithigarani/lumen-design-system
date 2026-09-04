@@ -164,7 +164,28 @@ The `cn()` class-merge helper and the `Tone` type are exported too.
 npm run storybook   # browse the system at http://localhost:6006
 npm run build       # emit dist/index.js, dist/index.d.ts, dist/styles.css
 npm run typecheck
+npm test            # the full suite
 ```
+
+## Tests
+
+```bash
+npm test            # everything
+npm run test:unit   # pure logic only, no browser (~0.5s)
+npm run test:watch  # watch mode
+```
+
+Two Vitest projects:
+
+- **`unit`** — Node. Scroll maths, `cn`, the tone maps, and assertions about the *shipped*
+  `dist/styles.css`: that vendor prefixes are ordered so the minifier can't drop the standard
+  property, and that every utility the components rely on survived `@source` scanning.
+- **`browser`** — real Chromium via Playwright. Lumen deliberately leans on `<dialog>`, the Popover
+  API, `IntersectionObserver` and CSS scroll-snap, so jsdom would mean asserting against mocks
+  instead of the platform. Layout, focus management, paint and keyboard behaviour are all tested for
+  real.
+
+`src/platform-support.browser.test.tsx` fails loudly if the browser lacks an API the library assumes.
 
 Every component lives in `src/components/<Name>/` alongside its stories. Adding one means creating
 the component, its `*.stories.tsx`, and an export line in `src/index.ts`.

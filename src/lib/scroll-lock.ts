@@ -20,3 +20,8 @@ export function unlockScroll(): void {
   count = Math.max(0, count - 1);
   if (count === 0) document.documentElement.style.overflow = previous;
 }
+
+/** Current lock depth. Internal — for tests and debugging, not exported publicly. */
+export function scrollLockDepth(): number {
+  return count;
+}

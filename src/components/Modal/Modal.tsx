@@ -65,10 +65,27 @@ export const Modal = forwardRef<HTMLDialogElement, ModalProps>(function Modal(
   const localRef = useRef<HTMLDialogElement | null>(null);
   const ref = useMergedRef<HTMLDialogElement>(localRef, forwardedRef);
   const restoreTo = useRef<HTMLElement | null>(null);
+  // Whether *this* modal currently holds the scroll lock. Inferring it from
+  // the dialog ref is unsafe: the ref can already be detached when the
+  // unmount cleanup runs, which leaks the lock and drifts the ref-count so
+  // later modals silently stop locking at all.
+  const locked = useRef(false);
   const pointerDownOutside = useRef(false);
+  // Held in a ref so the cancel/close listeners can be attached once. Keying
+  // that effect on `onClose` re-attached them on every render, and an Escape
+  // landing in the teardown window closed the dialog natively without ever
+  // running our handler — leaking the scroll lock.
+  const onCloseRef = useRef(onClose);
+  onCloseRef.current = onClose;
 
   const titleId = useId();
   const descId = useId();
+
+  const releaseLock = useCallback(() => {
+    if (!locked.current) return;
+    locked.current = false;
+    unlockScroll();
+  }, []);
 
   const runClose = useCallback(() => {
     const el = localRef.current;
@@ -76,6 +93,7 @@ export const Modal = forwardRef<HTMLDialogElement, ModalProps>(function Modal(
     el.dataset.state = "closed";
     const finish = () => {
       if (el.open) el.close();
+      releaseLock();
     };
     // transitionend is the happy path; the timeout covers interrupted transitions.
     const timer = setTimeout(finish, DURATION + 80);
@@ -87,7 +105,7 @@ export const Modal = forwardRef<HTMLDialogElement, ModalProps>(function Modal(
       },
       { once: true },
     );
-  }, []);
+  }, [releaseLock]);
 
   useEffect(() => {
     const el = localRef.current;
@@ -98,6 +116,7 @@ export const Modal = forwardRef<HTMLDialogElement, ModalProps>(function Modal(
         restoreTo.current = (document.activeElement as HTMLElement) ?? null;
         el.showModal();
         lockScroll();
+        locked.current = true;
         // A frame later so the transition has a starting state.
         requestAnimationFrame(() => {
           el.dataset.state = "open";
@@ -116,10 +135,10 @@ export const Modal = forwardRef<HTMLDialogElement, ModalProps>(function Modal(
 
     const onCancel = (e: Event) => {
       e.preventDefault();
-      onClose();
+      onCloseRef.current();
     };
     const onCloseEvent = () => {
-      unlockScroll();
+      releaseLock();
       restoreTo.current?.focus?.();
       restoreTo.current = null;
     };
@@ -130,14 +149,12 @@ export const Modal = forwardRef<HTMLDialogElement, ModalProps>(function Modal(
       el.removeEventListener("cancel", onCancel);
       el.removeEventListener("close", onCloseEvent);
     };
-  }, [onClose]);
+  }, [releaseLock]);
 
   // Release the lock if we unmount while open.
   useEffect(() => {
-    return () => {
-      if (localRef.current?.open) unlockScroll();
-    };
-  }, []);
+    return () => releaseLock();
+  }, [releaseLock]);
 
   const onPointerDown = (e: React.PointerEvent<HTMLDialogElement>) => {
     pointerDownOutside.current = isOutside(e, localRef.current);
