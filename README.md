@@ -7,7 +7,14 @@ Near-black void, violet-tinted glass, cyan energy, and widely-tracked uppercase 
 
 ## Install
 
-Lumen is consumed as a local package:
+Lumen is not published to npm yet. Install it straight from GitHub — the `prepare` script builds
+`dist/` on install, so the package works the same as a registry install:
+
+```bash
+npm install github:krithigarani/lumen-design-system
+```
+
+Or, when working on Lumen and a consuming app side by side, point at the folder:
 
 ```bash
 npm install ../lumen
@@ -161,3 +168,12 @@ npm run typecheck
 
 Every component lives in `src/components/<Name>/` alongside its stories. Adding one means creating
 the component, its `*.stories.tsx`, and an export line in `src/index.ts`.
+
+## Docs
+
+The full component gallery is published at
+**[lumen-design-system-ten.vercel.app](https://lumen-design-system-ten.vercel.app)**.
+
+## License
+
+MIT © Krithiga Rani Murugesan — see [LICENSE](LICENSE).
