@@ -2,7 +2,8 @@ import type { Meta, StoryObj } from "@storybook/react-vite";
 import { useState } from "react";
 import { NebulaBackdrop } from "./NebulaBackdrop";
 import { Starfield } from "./Starfield";
-import { LoaderScreen, OrbitSpinner } from "../Loader/Loader";
+import { LoaderScreen } from "../Loader/Loader";
+import { OrbitSpinner } from "../Loader/OrbitSpinner";
 import { Button } from "../Button/Button";
 import { Heading, Text } from "../Text/Text";
 

@@ -20,11 +20,17 @@ Or, when working on Lumen and a consuming app side by side, point at the folder:
 npm install ../lumen
 ```
 
-Then import the stylesheet once at your app root, and components wherever you need them:
+Lumen ships two entries. The default one is **server-safe** — everything in it renders inside a
+React Server Component. Interactive components carry `"use client"` and live under `/client`:
 
 ```tsx
 import "@lumen/react/styles.css";
-import { Button, Card, Heading, GradientText } from "@lumen/react";
+
+// Server-safe: no state, effects, refs or event handlers.
+import { Button, Card, Heading, GradientText, Badge, Input } from "@lumen/react";
+
+// Interactive: ships the client runtime.
+import { Modal, Carousel, Reveal, useScrollProgress } from "@lumen/react/client";
 
 export default function Page() {
   return (
@@ -32,13 +38,19 @@ export default function Page() {
       <Heading level={1}>
         <GradientText>Signal acquired</GradientText>
       </Heading>
-      <Button variant="sweep" tone="cyan">
-        Enter orbit
-      </Button>
     </Card>
   );
 }
 ```
+
+| Entry | Contains | Bundle |
+| ----- | -------- | ------ |
+| `@lumen/react` | Button, Card, GlassPanel, Badge, typography, Divider, Input/Textarea/Field, Spinner, OrbitSpinner, Stat, Timeline, Quote, DataList, EmptyState, ScrollArea, NebulaBackdrop, Scrim, `cn`, scroll maths | ~20 KB |
+| `@lumen/react/client` | Modal, Popover, Carousel, Accordion, Avatar, DotNav, Starfield, LoaderScreen, and the whole motion layer + hooks | ~53 KB |
+
+A component belongs to the client entry when it needs `useState`, `useEffect`, `useRef`,
+`useContext` or a DOM event handler. `forwardRef`, `useId`, `useMemo` and `useCallback` all work
+server-side, which is why the form controls stay in the default entry.
 
 The shipped `styles.css` is self-contained — it includes the tokens, the effect classes, and every
 Tailwind utility the components use. **You do not need Tailwind installed** to consume Lumen.

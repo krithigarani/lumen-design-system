@@ -1,16 +1,27 @@
 import { defineConfig } from "tsup";
 
-export default defineConfig({
-  entry: ["src/index.ts"],
-  format: ["esm"],
+const shared = {
+  format: ["esm"] as const,
   dts: true,
-  clean: true,
   // Rollup's treeshaker strips module-level directives, which would drop the
-  // "use client" banner below. esbuild's own DCE is sufficient here.
+  // "use client" banner on the client entry. esbuild's own DCE is sufficient.
   treeshake: false,
   splitting: false,
   external: ["react", "react-dom", "react/jsx-runtime"],
-  // Many Lumen components use hooks, so the bundle is marked client-side for
-  // the Next.js App Router. Consumers can still render them inside server pages.
-  banner: { js: '"use client";' },
-});
+};
+
+export default defineConfig([
+  {
+    // Server-safe: no directive, so these render in React Server Components.
+    ...shared,
+    entry: { index: "src/index.ts" },
+    clean: true,
+  },
+  {
+    // Interactive: needs state, effects, refs or event handlers.
+    ...shared,
+    entry: { client: "src/client.ts" },
+    clean: false,
+    banner: { js: '"use client";' },
+  },
+]);
