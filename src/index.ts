@@ -49,6 +49,18 @@ export type { SelectProps } from "./components/Select/Select";
 export { Slider } from "./components/Slider/Slider";
 export type { SliderProps } from "./components/Slider/Slider";
 
+export { Alert } from "./components/Alert/Alert";
+export type { AlertProps } from "./components/Alert/Alert";
+
+export { Tooltip } from "./components/Tooltip/Tooltip";
+export type { TooltipProps, TooltipPlacement } from "./components/Tooltip/Tooltip";
+
+export { Progress } from "./components/Progress/Progress";
+export type { ProgressProps } from "./components/Progress/Progress";
+
+export { Skeleton } from "./components/Skeleton/Skeleton";
+export type { SkeletonProps, SkeletonShape } from "./components/Skeleton/Skeleton";
+
 export { Spinner } from "./components/Spinner/Spinner";
 export type { SpinnerProps } from "./components/Spinner/Spinner";
 
@@ -87,6 +99,7 @@ export type { ScrimProps, ChapterAlign } from "./components/Chapter/Scrim";
 
 export { cn } from "./lib/cn";
 export type { Tone } from "./lib/tone";
+export type { Status } from "./lib/status";
 export {
   clamp,
   lerp,

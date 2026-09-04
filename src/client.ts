@@ -54,6 +54,11 @@ export type { StarfieldProps } from "./components/Atmosphere/Starfield";
 export { LoaderScreen } from "./components/Loader/Loader";
 export type { LoaderScreenProps } from "./components/Loader/Loader";
 
+export { Toaster } from "./components/Toast/Toast";
+export type { ToasterProps, ToasterPlacement } from "./components/Toast/Toast";
+export { toast, dismissToast, clearToasts } from "./lib/toast-store";
+export type { ToastOptions, ToastRecord } from "./lib/toast-store";
+
 /* ---------------- Hooks ---------------- */
 
 export {

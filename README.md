@@ -94,6 +94,9 @@ In Next.js, load them with `next/font/google` and point the tokens at the genera
 
 Motion uses one shared curve: `--ease-celestial: cubic-bezier(0.22, 1, 0.36, 1)`.
 
+Semantic statuses map onto the palette: `info` → cyan, `success` → emerald, `warning` → amber,
+`danger` → rose. `Alert`, `Progress` and `Toaster` all take a `status`.
+
 ## Effect classes
 
 Available from the stylesheet, usable on any element:
@@ -117,6 +120,11 @@ Available from the stylesheet, usable on any element:
 | `Select`                                             | Styled native `<select>` — platform picker and type-ahead kept  |
 | `Slider`                                             | Styled native range; `tone` accents the thumb                   |
 | `Spinner` `OrbitSpinner` `LoaderScreen`              | Loaders; `LoaderScreen` cycles status lines with a failsafe     |
+| `Alert`                                              | Inline message; `danger`/`warning` announce assertively         |
+| `Tooltip`                                            | CSS-only hint on hover **and** focus; no collision detection    |
+| `Progress`                                           | Determinate bar; indeterminate when `value` is omitted          |
+| `Skeleton`                                           | Shimmering placeholder; `lines` stacks a paragraph              |
+| `Toaster` + `toast()`                                | Notifications from a module-level queue — no provider needed    |
 | `Stat` `StatGroup`                                   | HUD readout tile; `media` slot replaces the figure              |
 | `Modal`                                              | Native `<dialog>` — focus trap, Escape, scroll lock, top layer  |
 | `Popover` `MenuItem`                                 | Native Popover API — light dismiss, `aria-expanded`, arrow keys |
