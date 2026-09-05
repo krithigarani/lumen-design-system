@@ -45,8 +45,8 @@ export default function Page() {
 
 | Entry | Contains | Bundle |
 | ----- | -------- | ------ |
-| `@lumen/react` | Button, Link, Card, GlassPanel, Badge, typography, Divider, all form controls, Alert, Tooltip, Progress, Skeleton, Kbd/ShortcutBar, HudLayer/AppBar, Spinner, Stat, Timeline, Quote, DataList, EmptyState, ScrollArea, NebulaBackdrop, `cn`, scroll maths | ~36 KB |
-| `@lumen/react/client` | Modal, Popover, Tabs, Carousel, Accordion, Avatar, DotNav, Starfield, LoaderScreen, Toaster, and the whole motion layer + hooks | ~63 KB |
+| `@lumen/react` | Button, Link, Card, GlassPanel, Badge, typography, Divider, all form controls, Alert, Tooltip, Progress, Skeleton, Kbd/ShortcutBar, HudLayer/AppBar, Spinner, Stat, Timeline, Quote, DataList, EmptyState, ScrollArea, Table, NebulaBackdrop, `cn`, scroll maths | ~39 KB |
+| `@lumen/react/client` | Modal, Drawer, Popover, Tabs, Carousel, Accordion, Avatar, DotNav, Starfield, LoaderScreen, Toaster, and the whole motion layer + hooks | ~65 KB |
 
 A component belongs to the client entry when it needs `useState`, `useEffect`, `useRef`,
 `useContext` or a DOM event handler. `forwardRef`, `useId`, `useMemo` and `useCallback` all work
@@ -131,6 +131,8 @@ Available from the stylesheet, usable on any element:
 | `HudLayer` `AppBar` `Brand`                          | Click-through overlay chrome for a canvas or game board         |
 | `Stat` `StatGroup`                                   | HUD readout tile; `media` slot replaces the figure              |
 | `Modal`                                              | Native `<dialog>` — focus trap, Escape, scroll lock, top layer  |
+| `Drawer`                                             | Edge panel on the same `<dialog>` machinery; scrolling body     |
+| `Table` + `TableHead`/`Body`/`Row`/`Cell`            | Scopes, `aria-sort`, sticky header, own scroll container        |
 | `Popover` `MenuItem`                                 | Native Popover API — light dismiss, `aria-expanded`, arrow keys |
 | `Accordion` `AccordionItem`                          | Disclosure panels; animates without measuring heights           |
 | `Timeline` `TimelineItem`                            | Vertical run of events on a glowing rail                        |

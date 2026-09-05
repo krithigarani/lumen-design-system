@@ -81,6 +81,22 @@ export type { StatProps, StatGroupProps, StatSize } from "./components/Stat/Stat
 
 /* ---------------- Content ---------------- */
 
+export {
+  Table,
+  TableHead,
+  TableBody,
+  TableRow,
+  TableHeaderCell,
+  TableCell,
+} from "./components/Table/Table";
+export type {
+  TableProps,
+  TableSectionProps,
+  TableRowProps,
+  TableHeaderCellProps,
+  TableCellProps,
+} from "./components/Table/Table";
+
 export { Timeline, TimelineItem } from "./components/Timeline/Timeline";
 export type { TimelineProps, TimelineItemProps } from "./components/Timeline/Timeline";
 

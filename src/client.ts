@@ -54,6 +54,9 @@ export type { StarfieldProps } from "./components/Atmosphere/Starfield";
 export { LoaderScreen } from "./components/Loader/Loader";
 export type { LoaderScreenProps } from "./components/Loader/Loader";
 
+export { Drawer } from "./components/Drawer/Drawer";
+export type { DrawerProps, DrawerSide } from "./components/Drawer/Drawer";
+
 export { Tabs, TabList, Tab, TabPanel } from "./components/Tabs/Tabs";
 export type { TabsProps, TabListProps, TabProps, TabPanelProps } from "./components/Tabs/Tabs";
 
@@ -78,6 +81,8 @@ export { useInView, REVEAL_MARGIN } from "./hooks/useInView";
 export type { UseInViewOptions } from "./hooks/useInView";
 export { useReducedMotion } from "./hooks/useReducedMotion";
 export { useScrollSpy } from "./hooks/useScrollSpy";
+export { useNativeDialog } from "./hooks/useNativeDialog";
+export type { UseNativeDialogOptions } from "./hooks/useNativeDialog";
 export type { UseScrollSpyOptions } from "./hooks/useScrollSpy";
 
 export type { ScrollSnapshot, ProgressRange } from "./lib/scroll-store";

@@ -104,3 +104,12 @@
     transition: none;
   }
 }
+
+/* ---------------- Table ----------------
+   Dense mode tightens both header and body cells, which a utility class on
+   one component can't reach. */
+
+.lumen-table[data-dense="true"] th,
+.lumen-table[data-dense="true"] td {
+  padding-block: 0.45rem;
+}
