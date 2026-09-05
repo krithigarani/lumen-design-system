@@ -45,8 +45,8 @@ export default function Page() {
 
 | Entry | Contains | Bundle |
 | ----- | -------- | ------ |
-| `@lumen/react` | Button, Card, GlassPanel, Badge, typography, Divider, all form controls, Spinner, OrbitSpinner, Stat, Timeline, Quote, DataList, EmptyState, ScrollArea, NebulaBackdrop, Scrim, `cn`, scroll maths | ~22 KB |
-| `@lumen/react/client` | Modal, Popover, Carousel, Accordion, Avatar, DotNav, Starfield, LoaderScreen, and the whole motion layer + hooks | ~53 KB |
+| `@lumen/react` | Button, Link, Card, GlassPanel, Badge, typography, Divider, all form controls, Alert, Tooltip, Progress, Skeleton, Kbd/ShortcutBar, HudLayer/AppBar, Spinner, Stat, Timeline, Quote, DataList, EmptyState, ScrollArea, NebulaBackdrop, `cn`, scroll maths | ~36 KB |
+| `@lumen/react/client` | Modal, Popover, Tabs, Carousel, Accordion, Avatar, DotNav, Starfield, LoaderScreen, Toaster, and the whole motion layer + hooks | ~63 KB |
 
 A component belongs to the client entry when it needs `useState`, `useEffect`, `useRef`,
 `useContext` or a DOM event handler. `forwardRef`, `useId`, `useMemo` and `useCallback` all work
@@ -110,6 +110,7 @@ Available from the stylesheet, usable on any element:
 | Component                                            | Notes                                                          |
 | ---------------------------------------------------- | -------------------------------------------------------------- |
 | `Button`                                             | `variant`: outline · sweep · icon · ghost; `as` for link buttons |
+| `Link`                                               | Styled anchor; `external` adds `rel="noopener noreferrer"`      |
 | `GlassPanel`                                         | The signature glass surface; `radius`, `floaty`                |
 | `Card`                                               | `surface`: glass · subtle · outline; `interactive`; `as`        |
 | `Badge` `BadgeGroup`                                 | Accented pill; `tone` or an arbitrary `accent` colour           |
@@ -125,6 +126,9 @@ Available from the stylesheet, usable on any element:
 | `Progress`                                           | Determinate bar; indeterminate when `value` is omitted          |
 | `Skeleton`                                           | Shimmering placeholder; `lines` stacks a paragraph              |
 | `Toaster` + `toast()`                                | Notifications from a module-level queue — no provider needed    |
+| `Tabs` `TabList` `Tab` `TabPanel`                    | APG roving tabindex; arrow keys skip disabled tabs              |
+| `Kbd` `ShortcutBar`                                  | Key caps and a keyboard legend                                  |
+| `HudLayer` `AppBar` `Brand`                          | Click-through overlay chrome for a canvas or game board         |
 | `Stat` `StatGroup`                                   | HUD readout tile; `media` slot replaces the figure              |
 | `Modal`                                              | Native `<dialog>` — focus trap, Escape, scroll lock, top layer  |
 | `Popover` `MenuItem`                                 | Native Popover API — light dismiss, `aria-expanded`, arrow keys |

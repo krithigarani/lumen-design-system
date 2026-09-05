@@ -54,6 +54,9 @@ export type { StarfieldProps } from "./components/Atmosphere/Starfield";
 export { LoaderScreen } from "./components/Loader/Loader";
 export type { LoaderScreenProps } from "./components/Loader/Loader";
 
+export { Tabs, TabList, Tab, TabPanel } from "./components/Tabs/Tabs";
+export type { TabsProps, TabListProps, TabProps, TabPanelProps } from "./components/Tabs/Tabs";
+
 export { Toaster } from "./components/Toast/Toast";
 export type { ToasterProps, ToasterPlacement } from "./components/Toast/Toast";
 export { toast, dismissToast, clearToasts } from "./lib/toast-store";

@@ -49,6 +49,15 @@ export type { SelectProps } from "./components/Select/Select";
 export { Slider } from "./components/Slider/Slider";
 export type { SliderProps } from "./components/Slider/Slider";
 
+export { Link } from "./components/Link/Link";
+export type { LinkProps, LinkTone } from "./components/Link/Link";
+
+export { Kbd, ShortcutBar } from "./components/Kbd/Kbd";
+export type { KbdProps, ShortcutBarProps, Shortcut } from "./components/Kbd/Kbd";
+
+export { HudLayer, AppBar, Brand } from "./components/Hud/Hud";
+export type { HudLayerProps, AppBarProps, BrandProps } from "./components/Hud/Hud";
+
 export { Alert } from "./components/Alert/Alert";
 export type { AlertProps } from "./components/Alert/Alert";
 
