@@ -7,6 +7,7 @@ import {
   useId,
   useRef,
   useState,
+  type CSSProperties,
   type ReactElement,
   type ReactNode,
 } from "react";
@@ -14,6 +15,16 @@ import { cn } from "../../lib/cn";
 import { useMergedRef } from "../../lib/dom";
 
 export type Placement = "bottom-start" | "bottom-end" | "top-start" | "top-end";
+
+/**
+ * CSS anchor positioning is Baseline 2026. Where it exists the browser places
+ * the panel — flipping away from viewport edges via `position-try-fallbacks` —
+ * and the JS below stands down entirely.
+ */
+const supportsAnchor = () =>
+  typeof CSS !== "undefined" &&
+  typeof CSS.supports === "function" &&
+  CSS.supports("anchor-name", "--probe");
 
 export interface PopoverProps {
   /** The control that opens the panel. Must accept a ref and props. */
@@ -48,8 +59,11 @@ export const Popover = forwardRef<HTMLDivElement, PopoverProps>(function Popover
   const triggerRef = useRef<HTMLElement | null>(null);
   const [open, setOpen] = useState(false);
   const id = useId();
+  // useId contains characters that aren't valid in a dashed-ident.
+  const anchorName = `--lumen-anchor-${id.replace(/[^a-zA-Z0-9]/g, "")}`;
 
   const position = useCallback(() => {
+    if (supportsAnchor()) return;
     const panel = panelRef.current;
     const anchor = triggerRef.current;
     if (!panel || !anchor) return;
@@ -92,7 +106,7 @@ export const Popover = forwardRef<HTMLDivElement, PopoverProps>(function Popover
 
   // Keep it anchored while open.
   useEffect(() => {
-    if (!open) return;
+    if (!open || supportsAnchor()) return;
     const onMove = () => position();
     window.addEventListener("scroll", onMove, true);
     window.addEventListener("resize", onMove);
@@ -125,13 +139,19 @@ export const Popover = forwardRef<HTMLDivElement, PopoverProps>(function Popover
     }
   };
 
+  const triggerProps = trigger as ReactElement<Record<string, unknown>>;
   const triggerEl = isValidElement(trigger)
-    ? cloneElement(trigger as ReactElement<Record<string, unknown>>, {
+    ? cloneElement(triggerProps, {
         ref: triggerRef,
         popoverTarget: id,
         "aria-expanded": open,
         "aria-haspopup": role === "menu" ? "menu" : "dialog",
         "aria-controls": id,
+        className: cn("lumen-anchor", triggerProps.props.className as string | undefined),
+        style: {
+          "--lumen-anchor-name": anchorName,
+          ...(triggerProps.props.style as CSSProperties | undefined),
+        } as CSSProperties,
       })
     : trigger;
 
@@ -145,7 +165,9 @@ export const Popover = forwardRef<HTMLDivElement, PopoverProps>(function Popover
         popover="auto"
         role={role === "menu" ? "menu" : undefined}
         data-state={open ? "open" : "closed"}
+        data-placement={placement}
         onKeyDown={onKeyDown}
+        style={{ "--lumen-anchor-name": anchorName } as CSSProperties}
         className={cn("lumen-popover glass fixed rounded-2xl p-3", className)}
       >
         {children}

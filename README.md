@@ -120,6 +120,20 @@ container. Two constraints are worth knowing up front:
   `Card` therefore enables containment only when rendered as a plain block; with `as="button"` you
   must opt in *and* give the element a width.
 
+## Positioning
+
+`Popover` uses **CSS anchor positioning** where the browser has it — Baseline 2026, so Chrome 125+,
+Safari 26 and Firefox 147. The browser tethers the panel to its trigger and flips it away from
+viewport edges through `position-try-fallbacks`, with no measuring on the main thread and nothing to
+re-run on scroll.
+
+Older browsers fall back to the previous JS path (measure, flip, clamp), chosen at runtime with
+`CSS.supports`. Only one is ever active: when anchor positioning is available the JS never writes
+`top`/`left`, so the two can't fight.
+
+Anchor names are per instance, so they travel as a custom property rather than a class — Tailwind
+only emits classes it can find as literal text.
+
 ## Effect classes
 
 Available from the stylesheet, usable on any element:
@@ -157,7 +171,7 @@ Available from the stylesheet, usable on any element:
 | `Modal`                                              | Native `<dialog>` — focus trap, Escape, scroll lock, top layer  |
 | `Drawer`                                             | Edge panel on the same `<dialog>` machinery; scrolling body     |
 | `Table` + `TableHead`/`Body`/`Row`/`Cell`            | Scopes, `aria-sort`, sticky header, own scroll container        |
-| `Popover` `MenuItem`                                 | Native Popover API — light dismiss, `aria-expanded`, arrow keys |
+| `Popover` `MenuItem`                                 | Popover API + CSS anchor positioning, with a JS fallback        |
 | `Accordion` `AccordionItem`                          | Disclosure panels; animates without measuring heights           |
 | `Timeline` `TimelineItem`                            | Vertical run of events on a glowing rail                        |
 | `Quote` `DataList` `DataRow` `EmptyState`            | Content primitives                                              |

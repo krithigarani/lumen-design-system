@@ -367,3 +367,38 @@ html[data-lumen-scrolled] .lumen-cue {
     transition: none;
   }
 }
+
+/* ---------------- Anchor positioning ----------------
+   Baseline 2026. Where it exists the browser positions the panel against its
+   trigger — including flipping away from viewport edges — and the JS path in
+   Popover stands down. The anchor name is per instance, so it travels as a
+   custom property rather than a class Tailwind would never see. */
+
+.lumen-anchor {
+  anchor-name: var(--lumen-anchor-name);
+}
+
+@supports (anchor-name: --probe) {
+  .lumen-popover {
+    position-anchor: var(--lumen-anchor-name);
+    /* Block-direction only: a shorthand margin also insets the panel from the
+       trigger's start edge, so a "-start" placement stops being aligned. */
+    margin-block: var(--lumen-popover-gap, 0.5rem);
+    margin-inline: 0;
+    /* Try the requested side first, then the opposite one, then the corner. */
+    position-try-fallbacks: flip-block, flip-inline, flip-block flip-inline;
+  }
+
+  .lumen-popover[data-placement="bottom-start"] {
+    position-area: block-end span-inline-end;
+  }
+  .lumen-popover[data-placement="bottom-end"] {
+    position-area: block-end span-inline-start;
+  }
+  .lumen-popover[data-placement="top-start"] {
+    position-area: block-start span-inline-end;
+  }
+  .lumen-popover[data-placement="top-end"] {
+    position-area: block-start span-inline-start;
+  }
+}
