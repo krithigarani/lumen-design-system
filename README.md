@@ -134,6 +134,35 @@ Older browsers fall back to the previous JS path (measure, flip, clamp), chosen 
 Anchor names are per instance, so they travel as a custom property rather than a class — Tailwind
 only emits classes it can find as literal text.
 
+## Theming
+
+Lumen is dark by design — the near-black void *is* the identity — but the accents are yours. Every
+surface, glow and gradient resolves through the palette tokens, so redefining them on any scope
+recolours everything beneath it. No rebuild, no second stylesheet, and it works on a subtree as
+happily as on `:root`:
+
+```tsx
+<div className="lumen-theme-ember">…</div>
+
+/* or your own */
+.my-theme {
+  --color-violet: #f0875e;   /* primary   */
+  --color-cyan:   #ffb27a;   /* interactive */
+  --color-gold:   #ffd9a0;   /* warm      */
+  --color-magenta:#ff6b8b;   /* tertiary  */
+}
+```
+
+Presets: `lumen-theme-ember` · `lumen-theme-abyss` · `lumen-theme-graphite`.
+
+The slots keep their colour names for continuity, but they are really *roles* — violet is primary,
+cyan is interactive and focus, gold is the warm accent, magenta the tertiary one. A theme that makes
+"violet" orange is doing the right thing, even if the name reads oddly.
+
+One thing genuinely can't be themed: the checkmark inside a checked `Checkbox` is an inline SVG data
+URI, which cannot reference a custom property. It stays the void colour, which reads correctly on
+any accent light enough to be a fill.
+
 ## Effect classes
 
 Available from the stylesheet, usable on any element:

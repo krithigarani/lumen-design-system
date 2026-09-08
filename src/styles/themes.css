@@ -1,0 +1,40 @@
+/* ------------------------------------------------------------------ *
+ * Theme presets.
+ *
+ * Every surface, glow and gradient resolves through the palette tokens, so
+ * redefining them on any scope recolours everything beneath it — no rebuild,
+ * no extra stylesheet, and it works on a subtree as happily as on :root.
+ *
+ * The slots are named for the default theme but function as roles:
+ *   violet  — primary / brand
+ *   cyan    — interactive, focus, energy
+ *   gold    — warm accent
+ *   magenta — tertiary accent
+ *
+ * All of these stay dark: Lumen's identity is the near-black void, and only
+ * the accents move.
+ * ------------------------------------------------------------------ */
+
+/* Warm rust and ember against the same void. */
+.lumen-theme-ember {
+  --color-violet: #f0875e;
+  --color-cyan: #ffb27a;
+  --color-gold: #ffd9a0;
+  --color-magenta: #ff6b8b;
+}
+
+/* Cold, deep-water blues and greens. */
+.lumen-theme-abyss {
+  --color-violet: #4f8bd6;
+  --color-cyan: #5fe0c8;
+  --color-gold: #9fe8d0;
+  --color-magenta: #6ad2ff;
+}
+
+/* Monochrome, for dense or data-heavy surfaces. */
+.lumen-theme-graphite {
+  --color-violet: #9aa3b8;
+  --color-cyan: #cdd5e6;
+  --color-gold: #b9c0d0;
+  --color-magenta: #8891a6;
+}

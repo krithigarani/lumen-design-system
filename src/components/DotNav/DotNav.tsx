@@ -86,8 +86,8 @@ export const DotNav = forwardRef<HTMLElement, DotNavProps>(function DotNav(
                     "block rounded-full transition-all duration-500 ease-[var(--ease-celestial)]",
                     active
                       ? variant === "pill"
-                        ? "h-1.5 w-6 bg-cyan shadow-[0_0_12px_#7dd3fc]"
-                        : "size-2.5 bg-cyan shadow-[0_0_12px_#7dd3fc]"
+                        ? "h-1.5 w-6 bg-cyan shadow-[0_0_12px_var(--color-cyan)]"
+                        : "size-2.5 bg-cyan shadow-[0_0_12px_var(--color-cyan)]"
                       : "size-1.5 bg-faint group-hover:bg-muted",
                   )}
                 />

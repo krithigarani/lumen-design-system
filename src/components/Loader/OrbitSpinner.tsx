@@ -30,7 +30,7 @@ export const OrbitSpinner = forwardRef<HTMLDivElement, OrbitSpinnerProps>(functi
       <div className="absolute inset-0 rounded-full border border-violet/30" />
       <div className="absolute inset-0 rounded-full border-t border-cyan" />
       <div className="absolute inset-3 rounded-full border border-white/10" />
-      <div className="absolute top-0 left-1/2 size-1.5 -translate-x-1/2 rounded-full bg-cyan shadow-[0_0_10px_#7dd3fc]" />
+      <div className="absolute top-0 left-1/2 size-1.5 -translate-x-1/2 rounded-full bg-cyan shadow-[0_0_10px_var(--color-cyan)]" />
     </div>
   );
 });

@@ -23,10 +23,10 @@ export const statusFill: Record<Status, string> = {
 };
 
 export const statusGlow: Record<Status, string> = {
-  info: "shadow-[0_0_12px_#7dd3fc]",
-  success: "shadow-[0_0_12px_#34d399]",
-  warning: "shadow-[0_0_12px_#fbbf24]",
-  danger: "shadow-[0_0_12px_#f0879e]",
+  info: "shadow-[0_0_12px_var(--color-cyan)]",
+  success: "shadow-[0_0_12px_var(--color-emerald)]",
+  warning: "shadow-[0_0_12px_var(--color-amber)]",
+  danger: "shadow-[0_0_12px_var(--color-rose)]",
 };
 
 /** Default glyph per status. Consumers can override with the `icon` prop. */

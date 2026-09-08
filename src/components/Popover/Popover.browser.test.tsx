@@ -119,7 +119,8 @@ describe("Popover", () => {
 
     expect(panel().style.top).toBe("");
     expect(panel().style.left).toBe("");
-    expect(getComputedStyle(panel()).positionAnchor).toBeTruthy();
+    // position-anchor isn't in lib.dom's CSSStyleDeclaration yet.
+    expect(getComputedStyle(panel()).getPropertyValue("position-anchor")).toBeTruthy();
   });
 
   it.runIf(supportsAnchor)("aligns a -start placement with the trigger's edge", async () => {

@@ -188,15 +188,17 @@ describe("Toaster", () => {
 
   it("holds a toast open while it is hovered", async () => {
     render(<Toaster />);
-    // Long enough that the enter transition settles before we hover — hovering
-    // a moving element times out — and that the wait below outlives it.
-    toast.info({ title: "Hovered", duration: 1200 });
+    // Generous margins on purpose. Playwright refuses to hover an element that
+    // is still moving, and the toast animates in over 260ms, so the sequence
+    // has to be: appear, settle, hover, then outlive the countdown.
+    toast.info({ title: "Hovered", duration: 3000 });
     await waitFor(() => expect(screen.getByText("Hovered")).toBeTruthy());
+    await new Promise((r) => setTimeout(r, 500));
 
     await userEvent.hover(screen.getByText("Hovered"));
-    await new Promise((r) => setTimeout(r, 1800));
+    await new Promise((r) => setTimeout(r, 3500));
     expect(screen.getByText("Hovered")).toBeTruthy();
-  });
+  }, 15000);
 
   it("keeps a zero-duration toast on screen", async () => {
     render(<Toaster />);

@@ -160,7 +160,7 @@ export const Tab = forwardRef<HTMLButtonElement, TabProps>(function Tab(
         "focus-visible:outline focus-visible:outline-1 focus-visible:outline-cyan focus-visible:outline-offset-[-3px]",
         "disabled:cursor-not-allowed disabled:opacity-40",
         selected
-          ? "border-cyan text-cyan shadow-[0_1px_12px_-2px_#7dd3fc]"
+          ? "border-cyan text-cyan shadow-[0_1px_12px_-2px_var(--color-cyan)]"
           : "border-transparent text-muted hover:text-ink",
         className,
       )}

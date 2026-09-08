@@ -3,6 +3,7 @@
 @import "./motion.css";
 @import "./forms.css";
 @import "./feedback.css";
+@import "./themes.css";
 
 /* Scan the components so their utility classes are emitted into the shipped
    stylesheet — consumers need no Tailwind install of their own. */
@@ -14,19 +15,19 @@
 
 /* Violet-tinted translucent glass with a soft outer glow + inner highlight. */
 .glass {
-  background: linear-gradient(150deg, rgba(139, 124, 246, 0.08), rgba(10, 10, 28, 0.55));
+  background: linear-gradient(150deg, color-mix(in srgb, var(--color-violet) 8%, transparent), color-mix(in srgb, var(--color-surface) 55%, transparent));
   /* Prefixed first — the minifier drops the standard property if it comes first. */
   -webkit-backdrop-filter: blur(14px);
   backdrop-filter: blur(14px);
-  border: 1px solid rgba(139, 124, 246, 0.18);
+  border: 1px solid color-mix(in srgb, var(--color-violet) 18%, transparent);
   box-shadow:
-    0 0 40px rgba(139, 124, 246, 0.06),
+    0 0 40px color-mix(in srgb, var(--color-violet) 6%, transparent),
     inset 0 1px 0 rgba(255, 255, 255, 0.06);
 }
 
 /* The 4-stop brand gradient, clipped to text. */
 .gradient-text {
-  background: linear-gradient(100deg, #eae6ff 10%, #7dd3fc 45%, #8b7cf6 70%, #f472b6 95%);
+  background: linear-gradient(100deg, var(--color-ink) 10%, var(--color-cyan) 45%, var(--color-violet) 70%, var(--color-magenta) 95%);
   -webkit-background-clip: text;
   background-clip: text;
   color: transparent;
@@ -34,8 +35,8 @@
 
 .text-glow {
   text-shadow:
-    0 0 24px rgba(139, 124, 246, 0.55),
-    0 0 64px rgba(125, 211, 252, 0.25);
+    0 0 24px color-mix(in srgb, var(--color-violet) 55%, transparent),
+    0 0 64px color-mix(in srgb, var(--color-cyan) 25%, transparent);
 }
 
 /* Wide-tracked uppercase micro-label. */
@@ -51,13 +52,13 @@
   height: 1px;
   width: 100%;
   border: 0;
-  background: linear-gradient(90deg, transparent, rgba(139, 124, 246, 0.5), transparent);
+  background: linear-gradient(90deg, transparent, color-mix(in srgb, var(--color-violet) 50%, transparent), transparent);
 }
 
 /* Spinning conic ring, masked to a hollow band. */
 .hologram-ring {
   border-radius: 9999px;
-  background: conic-gradient(from 0deg, transparent, #7dd3fc, #8b7cf6, transparent);
+  background: conic-gradient(from 0deg, transparent, var(--color-cyan), var(--color-violet), transparent);
   animation: spin 3s linear infinite;
   -webkit-mask: radial-gradient(farthest-side, transparent calc(100% - 3px), #000 calc(100% - 3px));
   mask: radial-gradient(farthest-side, transparent calc(100% - 3px), #000 calc(100% - 3px));

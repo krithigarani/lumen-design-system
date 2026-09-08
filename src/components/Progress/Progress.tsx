@@ -43,7 +43,7 @@ export const Progress = forwardRef<HTMLDivElement, ProgressProps>(function Progr
         className={cn(
           "h-full origin-left rounded-full transition-[scale] duration-500 ease-[var(--ease-celestial)]",
           gradient ? "bg-gradient-to-r from-violet via-cyan to-magenta" : statusFill[status],
-          gradient ? "shadow-[0_0_10px_#7dd3fc]" : statusGlow[status],
+          gradient ? "shadow-[0_0_10px_var(--color-cyan)]" : statusGlow[status],
           indeterminate && "animate-pulse",
         )}
         style={{ scale: `${indeterminate ? 1 : pct} 1` } as CSSProperties}

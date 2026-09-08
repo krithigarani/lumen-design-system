@@ -85,13 +85,13 @@
 /* ---------------- Scrim ---------------- */
 
 .lumen-scrim-center {
-  background: radial-gradient(55% 60% at 50% 50%, rgba(2, 2, 8, 0.72), transparent 75%);
+  background: radial-gradient(55% 60% at 50% 50%, color-mix(in srgb, var(--color-void) 72%, transparent), transparent 75%);
 }
 .lumen-scrim-left {
-  background: radial-gradient(60% 80% at 25% 50%, rgba(2, 2, 8, 0.82), transparent 75%);
+  background: radial-gradient(60% 80% at 25% 50%, color-mix(in srgb, var(--color-void) 82%, transparent), transparent 75%);
 }
 .lumen-scrim-right {
-  background: radial-gradient(60% 80% at 75% 50%, rgba(2, 2, 8, 0.82), transparent 75%);
+  background: radial-gradient(60% 80% at 75% 50%, color-mix(in srgb, var(--color-void) 82%, transparent), transparent 75%);
 }
 
 /* ---------------- ScrollProgress ---------------- */
@@ -192,7 +192,7 @@ html[data-lumen-scrolled] .lumen-cue {
 }
 
 .lumen-dialog::backdrop {
-  background: rgba(3, 3, 9, 0.72);
+  background: color-mix(in srgb, var(--color-void) 72%, transparent);
   /* Prefixed first — the minifier drops the standard property if it comes first. */
   -webkit-backdrop-filter: blur(6px);
   backdrop-filter: blur(6px);
@@ -259,9 +259,9 @@ html[data-lumen-scrolled] .lumen-cue {
 
 .lumen-nebula {
   background:
-    radial-gradient(50rem 34rem at 82% 12%, rgba(139, 124, 246, 0.13), transparent 60%),
-    radial-gradient(42rem 30rem at 10% 78%, rgba(125, 211, 252, 0.08), transparent 60%),
-    radial-gradient(36rem 26rem at 50% 110%, rgba(232, 196, 124, 0.06), transparent 65%);
+    radial-gradient(50rem 34rem at 82% 12%, color-mix(in srgb, var(--color-violet) 13%, transparent), transparent 60%),
+    radial-gradient(42rem 30rem at 10% 78%, color-mix(in srgb, var(--color-cyan) 8%, transparent), transparent 60%),
+    radial-gradient(36rem 26rem at 50% 110%, color-mix(in srgb, var(--color-gold) 6%, transparent), transparent 65%);
 }
 
 /* ---------------- Failsafes ---------------- */
@@ -349,7 +349,7 @@ html[data-lumen-scrolled] .lumen-cue {
 }
 
 .lumen-drawer::backdrop {
-  background: rgba(3, 3, 9, 0.72);
+  background: color-mix(in srgb, var(--color-void) 72%, transparent);
   /* Prefixed first — the minifier drops the standard property if it comes first. */
   -webkit-backdrop-filter: blur(6px);
   backdrop-filter: blur(6px);

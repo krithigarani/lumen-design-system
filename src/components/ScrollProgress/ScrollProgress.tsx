@@ -47,7 +47,7 @@ export const ScrollProgress = forwardRef<HTMLDivElement, ScrollProgressProps>(
         {...props}
       >
         <div className="h-0.5 w-full bg-white/5">
-          <div className="lumen-progress-fill h-full w-full bg-gradient-to-r from-violet via-cyan to-magenta shadow-[0_0_10px_#7dd3fc]" />
+          <div className="lumen-progress-fill h-full w-full bg-gradient-to-r from-violet via-cyan to-magenta shadow-[0_0_10px_var(--color-cyan)]" />
         </div>
         {showReadout && (
           <div

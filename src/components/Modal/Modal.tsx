@@ -10,6 +10,7 @@ export interface ModalProps {
   description?: ReactNode;
   children?: ReactNode;
   /** Accent used for the top hairline and the portal iris. */
+  /** Any CSS colour. Defaults to the interactive accent token. */
   accent?: string;
   /** Close when the backdrop is clicked. Default true. */
   closeOnBackdrop?: boolean;
@@ -41,7 +42,7 @@ export const Modal = forwardRef<HTMLDialogElement, ModalProps>(function Modal(
     title,
     description,
     children,
-    accent = "#7dd3fc",
+    accent = "var(--color-cyan)",
     closeOnBackdrop = true,
     iris = true,
     initialFocus,
@@ -74,7 +75,11 @@ export const Modal = forwardRef<HTMLDialogElement, ModalProps>(function Modal(
         <div
           aria-hidden
           className="pointer-events-none absolute top-1/2 left-1/2 size-96 -translate-x-1/2 -translate-y-1/2 rounded-full opacity-25"
-          style={{ background: `radial-gradient(circle, ${accent}55, transparent 65%)` }}
+          // color-mix rather than appending an alpha suffix: the accent may be a
+          // var(), and "var(--x)55" is not a colour.
+          style={{
+            background: `radial-gradient(circle, color-mix(in srgb, ${accent} 33%, transparent), transparent 65%)`,
+          }}
         />
       )}
       {/* A size-query container, so panel content can respond to the dialog's

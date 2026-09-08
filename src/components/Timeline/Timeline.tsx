@@ -38,7 +38,7 @@ export const TimelineItem = forwardRef<HTMLLIElement, TimelineItemProps>(functio
     <li ref={ref} className={cn("relative pb-9 last:pb-0", className)} {...props}>
       <span
         aria-hidden
-        className="absolute -left-[37px] top-1.5 size-2.5 rounded-full bg-cyan shadow-[0_0_12px_#7dd3fc]"
+        className="absolute -left-[37px] top-1.5 size-2.5 rounded-full bg-cyan shadow-[0_0_12px_var(--color-cyan)]"
       />
       {period && (
         <p className="text-[10px] tracking-[0.3em] text-faint uppercase">{period}</p>

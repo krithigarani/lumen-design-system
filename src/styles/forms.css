@@ -19,7 +19,7 @@
 }
 
 .lumen-control:hover:not(:disabled) {
-  border-color: rgba(125, 211, 252, 0.5);
+  border-color: color-mix(in srgb, var(--color-cyan) 50%, transparent);
 }
 
 .lumen-control:focus-visible {
@@ -44,7 +44,7 @@
 .lumen-checkbox:indeterminate {
   background-color: var(--color-cyan);
   border-color: var(--color-cyan);
-  box-shadow: 0 0 12px rgba(125, 211, 252, 0.45);
+  box-shadow: 0 0 12px color-mix(in srgb, var(--color-cyan) 45%, transparent);
   background-repeat: no-repeat;
   background-position: center;
 }
@@ -72,7 +72,7 @@
   border-color: var(--color-cyan);
   /* The inset ring paints the void back over everything but the centre dot. */
   box-shadow:
-    0 0 12px rgba(125, 211, 252, 0.45),
+    0 0 12px color-mix(in srgb, var(--color-cyan) 45%, transparent),
     inset 0 0 0 4px var(--color-void);
 }
 
@@ -116,7 +116,7 @@
 .lumen-switch-input:checked + .lumen-switch-track {
   background-image: linear-gradient(90deg, var(--color-cyan), var(--color-violet));
   border-color: transparent;
-  box-shadow: 0 0 16px rgba(125, 211, 252, 0.35);
+  box-shadow: 0 0 16px color-mix(in srgb, var(--color-cyan) 35%, transparent);
 }
 
 .lumen-switch-input:checked + .lumen-switch-track .lumen-switch-thumb {
@@ -148,8 +148,8 @@
 
 /* The native dropdown list is drawn by the OS; give it legible colours. */
 .lumen-select option {
-  background: #07071a;
-  color: #eae6ff;
+  background: var(--color-bg-2);
+  color: var(--color-ink);
 }
 
 /* ---------------- Slider ---------------- */
