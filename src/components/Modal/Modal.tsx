@@ -77,7 +77,12 @@ export const Modal = forwardRef<HTMLDialogElement, ModalProps>(function Modal(
           style={{ background: `radial-gradient(circle, ${accent}55, transparent 65%)` }}
         />
       )}
-      <div className="glass relative w-full rounded-3xl p-8 md:p-10">
+      {/* A size-query container, so panel content can respond to the dialog's
+          width rather than the viewport's. */}
+      <div
+        className="glass relative w-full rounded-3xl p-8 md:p-10"
+        style={{ containerType: "inline-size" }}
+      >
         <div
           aria-hidden
           className="pointer-events-none absolute -top-px right-8 left-8 h-px"

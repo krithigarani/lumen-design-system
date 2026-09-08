@@ -14,6 +14,9 @@ export type { ButtonProps, ButtonVariant, ButtonSize } from "./components/Button
 export { GlassPanel } from "./components/GlassPanel/GlassPanel";
 export type { GlassPanelProps } from "./components/GlassPanel/GlassPanel";
 
+export { Container } from "./components/Container/Container";
+export type { ContainerProps } from "./components/Container/Container";
+
 export { Card } from "./components/Card/Card";
 export type { CardProps, CardSurface } from "./components/Card/Card";
 

@@ -97,6 +97,29 @@ Motion uses one shared curve: `--ease-celestial: cubic-bezier(0.22, 1, 0.36, 1)`
 Semantic statuses map onto the palette: `info` → cyan, `success` → emerald, `warning` → amber,
 `danger` → rose. `Alert`, `Progress` and `Toaster` all take a `status`.
 
+## Container queries
+
+Components respond to the space they are given, not the size of the window. `Card`, the `Modal`
+panel and the `Drawer` body are size-query containers, and `Container` marks any element as one:
+
+```tsx
+<Container>
+  <div className="flex flex-col @md:flex-row">…</div>
+</Container>
+```
+
+Utilities are Tailwind's container variants — `@sm:` `@md:` `@lg:`, or `@md/name:` against a named
+container. Two constraints are worth knowing up front:
+
+- **An element cannot query itself.** `container-type` makes an element measurable *by its
+  descendants*. A card's own padding therefore can't react to the card's own width without a
+  wrapper — which is why Lumen's internal `md:` breakpoints, like `Card`'s padding, are still
+  viewport-based.
+- **Containment collapses shrink-to-fit boxes.** `inline-size` containment computes the width
+  without consulting the content, so a form control or anchor ends up as wide as its own padding.
+  `Card` therefore enables containment only when rendered as a plain block; with `as="button"` you
+  must opt in *and* give the element a width.
+
 ## Effect classes
 
 Available from the stylesheet, usable on any element:
@@ -113,6 +136,7 @@ Available from the stylesheet, usable on any element:
 | `Link`                                               | Styled anchor; `external` adds `rel="noopener noreferrer"`      |
 | `GlassPanel`                                         | The signature glass surface; `radius`, `floaty`                |
 | `Card`                                               | `surface`: glass · subtle · outline; `interactive`; `as`        |
+| `Container`                                          | Marks a size-query container for `@md:` utilities               |
 | `Badge` `BadgeGroup`                                 | Accented pill; `tone` or an arbitrary `accent` colour           |
 | `Heading` `Text` `GradientText` `Eyebrow` `Hairline` | Typography set                                                  |
 | `Divider`                                            | Fading rule, optionally carrying a label                        |

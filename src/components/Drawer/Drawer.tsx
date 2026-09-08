@@ -102,8 +102,14 @@ export const Drawer = forwardRef<HTMLDialogElement, DrawerProps>(function Drawer
           </header>
         )}
 
-        {/* Scrolls on its own; the page behind it is locked. */}
-        <div className="min-h-0 flex-1 overflow-y-auto overscroll-contain p-6">{children}</div>
+        {/* Scrolls on its own; the page behind it is locked. Also a size-query
+            container, so a form inside can respond to the drawer's width. */}
+        <div
+          className="min-h-0 flex-1 overflow-y-auto overscroll-contain p-6"
+          style={{ containerType: "inline-size" }}
+        >
+          {children}
+        </div>
 
         {footer && (
           <footer className="shrink-0 border-t border-white/8 p-6">{footer}</footer>
